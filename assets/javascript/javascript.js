@@ -69,7 +69,7 @@ $(document).ready(function () {
                     var newDivElem = $("<div>");
                     var newPElem = $("<p>");
                     var newImgElem = $("<img>");
-                    $(newPElem).text("Rating: " + results[index].rating);
+                    $(newPElem).html("<span class=\"font-weight-bold\">Rating:</span> " + results[index].rating);
                     $(newPElem).attr("class", "mb-1");
                     $(newImgElem).attr({
                         "src": results[index].images.fixed_height_still.url,

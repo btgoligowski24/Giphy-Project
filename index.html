@@ -33,7 +33,7 @@
     <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-    <div class="container">
+    <div class="container text-center text-sm-left mt-2 mt-sm-1">
         <div class="row">
             <div class="col-12">
                 <div id="buttons">
@@ -41,19 +41,19 @@
             </div>
         </div>
         <div class="row mt-4">
-            <div class="col-9">
+            <div class="col-12 col-sm-9">
                 <div id="movieGifsHere"></div>
             </div>
-            <div class="col-3">
+            <div class="col-12 col-sm-3">
                 <form>
                     <div class="form-group">
-                        <label for="movieInput">Add a Movie</label>
+                        <label for="movieInput" class="font-weight-bold">Add a Movie</label>
                         <input type="text" class="form-control" id="movieInput" aria-describedby="movieHelp"
                             placeholder="Enter Movie Title">
                         <small id="movieHelp" class="form-text text-muted">Enter a movie, then click "Submit" to
                             create a movie button in the list above</small>
                     </div>
-                    <button id="submit" type="button" class="btn btn-secondary">Submit</button>
+                    <button id="submit" type="button" class="btn btn-secondary mb-3">Submit</button>
                 </form>
             </div>
         </div>
