@@ -53,9 +53,17 @@ $(document).ready(function () {
             }
         },
         getGifs: function () {
+           // var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=3ImgVPYGAgw75lJTDGZ8FNGYVAnFqwCY&limit=10";
+           // var movie = $(this).attr("data-movie");
+           // movie = movie.replace(/\s/g, "+");
+           // queryURL = queryURL + "&q=" + movie;
             $.ajax({
                 url: gifs.queryURL,
-                method: "GET"
+                method: "GET",
+                dataType: "jsonp",
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                }
             }).then(function (response) {
                 $("movieGifsHere").empty();
                 var results = response.data;
