@@ -17,10 +17,12 @@ $(document).ready(function () {
             "The Matrix",
             "Step Brothers",
         ],
-        queryURL: function() {
-            var url = "https://api.giphy.com/v1/gifs/search?api_key=3ImgVPYGAgw75lJTDGZ8FNGYVAnFqwCY&limit=10&q=Wedding+Crashers";
-            return url
-    },
+
+        // This doesn't work, I'd be curious to know if you could generate the url outside the AJAX call to and pass it into it, but I keep getting CORS errors.
+    //    queryURL: function() {
+    //        var url = "https://api.giphy.com/v1/gifs/search?api_key=3ImgVPYGAgw75lJTDGZ8FNGYVAnFqwCY&limit=10&q=Wedding+Crashers";
+    //        return url
+    //},
         createButton: function (str) {
             var newButtonElem = $("<button>");
             $(newButtonElem).attr({
@@ -53,21 +55,16 @@ $(document).ready(function () {
             }
         },
         getGifs: function () {
-           // var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=3ImgVPYGAgw75lJTDGZ8FNGYVAnFqwCY&limit=10";
-           // var movie = $(this).attr("data-movie");
-           // movie = movie.replace(/\s/g, "+");
-           // queryURL = queryURL + "&q=" + movie;
+            var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=3ImgVPYGAgw75lJTDGZ8FNGYVAnFqwCY&limit=10";
+            var movie = $(this).attr("data-movie");
+            movie = movie.replace(/\s/g, "+");
+            queryURL = queryURL + "&q=" + movie;
             $.ajax({
-                url: gifs.queryURL,
+                url: queryURL,
                 method: "GET",
-                dataType: "jsonp",
-                headers: {
-                    "Access-Control-Allow-Origin": "*",
-                }
             }).then(function (response) {
-                $("movieGifsHere").empty();
+                $("#movieGifsHere").empty();
                 var results = response.data;
-                console.log(results);
                 for (index in results) {
                     var newDivElem = $("<div>");
                     var newPElem = $("<p>");
