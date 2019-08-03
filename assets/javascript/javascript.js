@@ -73,6 +73,7 @@ $(document).ready(function () {
                 url: queryURL,
                 method: "GET",
             }).then(function (response) {
+                console.log("this: ", this);
                 var results = response.data;
                 console.log(results);
                 if ($("#movieGifsHere").children().length > 0) {
@@ -129,6 +130,7 @@ $(document).ready(function () {
             $(this).off("click");
             $(this).on("click", gifs.removeFromFavorites);
             $("#favorites").prepend(move);
+            console.log($("#favorites").children());
         },
         removeFromFavorites: function () {
             $(this).html("<img src=\"assets/images/star.png\" width=\"24px\">");
@@ -137,7 +139,12 @@ $(document).ready(function () {
             $(move).removeClass("mb-xl-3").addClass("m-xl-3 my-3");
             $(this).off("click");
             $(this).on("click", gifs.addToFavorites);
-            $(move).insertBefore($("#" + ($(this).parents().eq(1).attr("id") - 1)));
+            console.log($("#favorites").children());
+            if ($("#" + ($(this).parents().eq(1).attr("id") - 1)).parent().attr("id") === "favorites") {
+                $("#movieGifsHere").prepend(move);
+            } else {
+                $(move).insertBefore($("#" + ($(this).parents().eq(1).attr("id") - 1)));
+            }
         }
     }
 
