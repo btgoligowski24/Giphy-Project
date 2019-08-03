@@ -80,7 +80,7 @@ $(document).ready(function () {
                         "class": "addFavorite btn btn-sm btn-secondary mb-1"
                     });
                     $(favoritesButtonElem).css("float", "right");
-                    $(favoritesButtonElem).text("Favorite");
+                    $(favoritesButtonElem).html("<link href=\"assets/images/favicon_io/favicon-32x32.png\" type=\"image/png\" rel=\"shortcut icon\"/>");
                     $(newPElem).html("<span class=\"font-weight-bold\">Rating:</span> " + results[index].rating);
                     $(newPElem).css({"display": "inline", "float":"left"});
                     $(newImgElem).attr({
