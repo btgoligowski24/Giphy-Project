@@ -18,6 +18,7 @@ $(document).ready(function () {
             "Step Brothers",
             "Stargate"
         ],
+        persistMovies: [],
 
         // This doesn't work, I'd be curious to know if you could generate the url outside the AJAX call to and pass it into it, but I keep getting CORS errors.
         //    queryURL: function() {
@@ -57,10 +58,17 @@ $(document).ready(function () {
             }
         },
         getGifs: function () {
-            var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=3ImgVPYGAgw75lJTDGZ8FNGYVAnFqwCY&limit=10";
+            var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=3ImgVPYGAgw75lJTDGZ8FNGYVAnFqwCY";
             var movie = $(this).attr("data-movie");
+            var quantity = $("#numGIF").val();
+            console.log(quantity);
             movie = movie.replace(/\s/g, "+");
             queryURL = queryURL + "&q=" + movie;
+            if (quantity) {
+                queryURL = queryURL + "&limit=" + quantity;
+            } else {
+                queryURL = queryURL + "&limit=10"
+            }
             $.ajax({
                 url: queryURL,
                 method: "GET",
@@ -82,7 +90,10 @@ $(document).ready(function () {
                     $(favoritesButtonElem).css("float", "right");
                     $(favoritesButtonElem).html("<img src=\"assets/images/star.png\" width=\"24px\">");
                     $(newPElem).html("<span class=\"font-weight-bold\">Rating:</span> " + results[index].rating);
-                    $(newPElem).css({"display": "inline", "float":"left"});
+                    $(newPElem).css({
+                        "display": "inline",
+                        "float": "left"
+                    });
                     $(newImgElem).attr({
                         "src": results[index].images.fixed_height_still.url,
                         "data-state": "still",
@@ -106,7 +117,7 @@ $(document).ready(function () {
                 $(".addFavorite").on("click", gifs.addToFavorites);
             })
         },
-        addToFavorites: function () {            
+        addToFavorites: function () {
             $(this).html("<img src=\"assets/images/broken-heart.png\" width=\"24px\">");
             $(this).removeClass("btn-warning").addClass("btn-danger");
             var move = $(this).parents().eq(1)
@@ -138,6 +149,3 @@ $(document).ready(function () {
 
     gifs.buttonArray(gifs.movies);
 })
-
-
-// "*****&q=wedding crashers*********&offset=0********&rating=R*********&lang=en"
