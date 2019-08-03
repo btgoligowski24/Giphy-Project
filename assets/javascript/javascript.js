@@ -16,13 +16,15 @@ $(document).ready(function () {
             "Super Troopers",
             "The Matrix",
             "Step Brothers",
+            "Stargate"
         ],
 
         // This doesn't work, I'd be curious to know if you could generate the url outside the AJAX call to and pass it into it, but I keep getting CORS errors.
-    //    queryURL: function() {
-    //        var url = "https://api.giphy.com/v1/gifs/search?api_key=3ImgVPYGAgw75lJTDGZ8FNGYVAnFqwCY&limit=10&q=Wedding+Crashers";
-    //        return url
-    //},
+        //    queryURL: function() {
+        //        var url = "https://api.giphy.com/v1/gifs/search?api_key=3ImgVPYGAgw75lJTDGZ8FNGYVAnFqwCY&limit=10&q=Wedding+Crashers";
+        //        return url
+        //},
+        counter: 0,
         createButton: function (str) {
             var newButtonElem = $("<button>");
             $(newButtonElem).attr({
@@ -63,14 +65,24 @@ $(document).ready(function () {
                 url: queryURL,
                 method: "GET",
             }).then(function (response) {
-                $("#movieGifsHere").empty();
                 var results = response.data;
+                console.log(results);
+                if ($("#movieGifsHere").children().length > 0) {
+                    $("#movieGifsHere").prepend("<hr>");
+                }
                 for (index in results) {
                     var newDivElem = $("<div>");
-                    var newPElem = $("<p>");
+                    var newSubDivElem = $("<div>");
+                    var favoritesButtonElem = $("<button>");
+                    var newPElem = $("<p class=\"rating mb-0\">");
                     var newImgElem = $("<img>");
+                    $(favoritesButtonElem).attr({
+                        "class": "addFavorite btn btn-sm btn-secondary mb-1"
+                    });
+                    $(favoritesButtonElem).css("float", "right");
+                    $(favoritesButtonElem).text("Favorite");
                     $(newPElem).html("<span class=\"font-weight-bold\">Rating:</span> " + results[index].rating);
-                    $(newPElem).attr("class", "mb-1");
+                    $(newPElem).css({"display": "inline", "float":"left"});
                     $(newImgElem).attr({
                         "src": results[index].images.fixed_height_still.url,
                         "data-state": "still",
@@ -79,19 +91,46 @@ $(document).ready(function () {
                         "class": "rounded gif"
                     });
                     $(newDivElem).css("display", "inline-block");
-                    $(newDivElem).attr("class", "m-3");
+                    $(newDivElem).attr({
+                        "class": "my-3 mx-auto mx-xl-3",
+                        "id": gifs.counter
+                    });
                     $(newImgElem).on("click", gifs.animateGif);
-                    $(newDivElem).append(newPElem);
+                    $(newSubDivElem).append(newPElem);
+                    $(newSubDivElem).append(favoritesButtonElem);
+                    $(newDivElem).append(newSubDivElem);
                     $(newDivElem).append(newImgElem);
-                    $("#movieGifsHere").append(newDivElem);
+                    $("#movieGifsHere").prepend(newDivElem);
+                    gifs.counter++;
                 }
+                $(".addFavorite").on("click", gifs.addToFavorites);
             })
+        },
+        addToFavorites: function () {            
+            $(this).text("Remove");
+            var move = $(this).parents().eq(1)
+            if ($("#favorites").children().length === 0) {
+                $(move).removeClass("my-3").removeClass("mx-xl-3");
+            } else {
+                $(move).removeClass("mx-xl-3").removeClass("my-3").addClass("mb-xl-3");
+            }
+            $(this).off("click");
+            $(this).on("click", gifs.removeFromFavorites);
+            $("#favorites").prepend(move);
+        },
+        removeFromFavorites: function () {
+            $(this).text("Favorite");
+            var move = $(this).parents().eq(1);
+            $(move).removeClass("mb-xl-3").addClass("m-xl-3 my-3");
+            $(this).off("click");
+            $(this).on("click", gifs.addToFavorites);
+            $(move).insertBefore($("#" + ($(this).parents().eq(1).attr("id") - 1)));
         }
-
     }
 
-    $("#submit").on("click", function() {
+    $("#submit").on("click", function () {
         gifs.movies.push($("#movieInput").val().trim());
+        $("#movieInput").val("");
         gifs.buttonArray(gifs.movies);
     });
 

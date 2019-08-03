@@ -33,18 +33,20 @@
     <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-    <div class="container text-center text-sm-left mt-2 mt-sm-1">
+    <div class="container text-center text-xl-left mt-2 mt-sm-1">
         <div class="row">
             <div class="col-12">
                 <div id="buttons">
                 </div>
             </div>
         </div>
-        <div class="row mt-4">
-            <div class="col-12 col-sm-9">
-                <div id="movieGifsHere"></div>
+        <div class="row mt-4 p-0">
+            <div class="col-xl-8">
+                <div id="movieGifsHere" class="row">
+                    
+                </div>
             </div>
-            <div class="col-12 col-sm-3">
+            <div class="col-12 col-xl-4 mb-3">
                 <form>
                     <div class="form-group">
                         <label for="movieInput" class="font-weight-bold">Add a Movie</label>
@@ -53,8 +55,20 @@
                         <small id="movieHelp" class="form-text text-muted">Enter a movie, then click "Submit" to
                             create a movie button in the list above</small>
                     </div>
-                    <button id="submit" type="button" class="btn btn-secondary mb-3">Submit</button>
+                    <button id="submit" type="button" class="btn btn-success mb-3">Submit</button>
                 </form>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header font-weight-bold">
+                                Favorites:
+                            </div>
+                            <div id="favorites" class="card-body text-center">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
