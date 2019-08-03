@@ -77,10 +77,10 @@ $(document).ready(function () {
                     var newPElem = $("<p class=\"rating mb-0\">");
                     var newImgElem = $("<img>");
                     $(favoritesButtonElem).attr({
-                        "class": "addFavorite btn btn-sm btn-secondary mb-1"
+                        "class": "addFavorite btn btn-sm btn-warning mb-1"
                     });
                     $(favoritesButtonElem).css("float", "right");
-                    $(favoritesButtonElem).html("<link href=\"assets/images/favicon_io/favicon-32x32.png\" type=\"image/png\" rel=\"shortcut icon\"/>");
+                    $(favoritesButtonElem).html("<img src=\"assets/images/star.png\" width=\"24px\">");
                     $(newPElem).html("<span class=\"font-weight-bold\">Rating:</span> " + results[index].rating);
                     $(newPElem).css({"display": "inline", "float":"left"});
                     $(newImgElem).attr({
@@ -107,7 +107,8 @@ $(document).ready(function () {
             })
         },
         addToFavorites: function () {            
-            $(this).text("Remove");
+            $(this).html("<img src=\"assets/images/broken-heart.png\" width=\"24px\">");
+            $(this).removeClass("btn-warning").addClass("btn-danger");
             var move = $(this).parents().eq(1)
             if ($("#favorites").children().length === 0) {
                 $(move).removeClass("my-3").removeClass("mx-xl-3");
@@ -119,7 +120,8 @@ $(document).ready(function () {
             $("#favorites").prepend(move);
         },
         removeFromFavorites: function () {
-            $(this).text("Favorite");
+            $(this).html("<img src=\"assets/images/star.png\" width=\"24px\">");
+            $(this).removeClass("btn-danger").addClass("btn-warning");
             var move = $(this).parents().eq(1);
             $(move).removeClass("mb-xl-3").addClass("m-xl-3 my-3");
             $(this).off("click");
