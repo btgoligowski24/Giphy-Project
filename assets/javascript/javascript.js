@@ -114,10 +114,10 @@ $(document).ready(function () {
                     $("#movieGifsHere").prepend(newDivElem);
                     gifs.counter++;
                 }
-                $(".addFavorite").on("click", gifs.addToFavorites);
+
             })
         },
-        addToFavorites: function () {
+        addToFavorites: $("#movieGifsHere").on("click", ".addFavorite", function () {
             $(this).html("<img src=\"assets/images/broken-heart.png\" width=\"24px\">");
             $(this).removeClass("btn-warning").addClass("btn-danger");
             var move = $(this).parents().eq(1)
@@ -126,26 +126,22 @@ $(document).ready(function () {
             } else {
                 $(move).removeClass("mx-xl-3").removeClass("my-3").addClass("mb-xl-3");
             }
-            $(this).off("click");
-            $(this).on("click", gifs.removeFromFavorites);
             $("#favorites").prepend(move);
-        },
-        removeFromFavorites: function () {
+        }),
+        removeFromFavorites: $("#favorites").on("click", ".addFavorite", function () {
             $(this).html("<img src=\"assets/images/star.png\" width=\"24px\">");
             $(this).removeClass("btn-danger").addClass("btn-warning");
             var move = $(this).parents().eq(1);
-            $(move).removeClass("mb-xl-3").addClass("m-xl-3 my-3");
-            $(this).off("click");
-            $(this).on("click", gifs.addToFavorites);
+            $(move).removeClass("mb-xl-3").addClass("mx-xl-3 my-3");
             if ($("#" + ($(this).parents().eq(1).attr("id") - 1)).parent().attr("id") === "favorites") {
                 $("#movieGifsHere").prepend(move);
             } else {
                 $(move).insertBefore($("#" + ($(this).parents().eq(1).attr("id") - 1)));
             }
-            if ($("#favorites").children($(":last-child")).hasClass("mb-xl-3")) {
-                $("#favorites").children($(":last-child")).removeClass("mb-xl-3")
+            if ($("#favorites div:last-child").hasClass("mb-xl-3")) {
+                $("#favorites div:last-child").removeClass("mb-xl-3")
             }
-        }
+        })
     }
 
     $("#submit").on("click", function () {
