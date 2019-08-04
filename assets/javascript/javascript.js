@@ -34,7 +34,6 @@ $(document).ready(function () {
                 "data-movie": str
             });
             $(newButtonElem).text(str);
-            $(newButtonElem).on("click", gifs.getGifs);
             $("#buttons").append(newButtonElem);
         },
         buttonArray: function (arr) {
@@ -44,20 +43,7 @@ $(document).ready(function () {
             })
 
         },
-        animateGif: function () {
-            if ($(this).attr("data-state") === "still") {
-                $(this).attr({
-                    "src": $(this).attr("data-animate"),
-                    "data-state": "animate"
-                })
-            } else {
-                $(this).attr({
-                    "src": $(this).attr("data-still"),
-                    "data-state": "still"
-                })
-            }
-        },
-        getGifs: function () {
+        getGifs: $("#buttons").on("click", "button", function () {
             var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=3ImgVPYGAgw75lJTDGZ8FNGYVAnFqwCY";
             var movie = $(this).attr("data-movie");
             var quantity = $("#numGIF").val();
@@ -72,9 +58,7 @@ $(document).ready(function () {
                 url: queryURL,
                 method: "GET",
             }).then(function (response) {
-                console.log("this: ", this);
                 var results = response.data;
-                console.log(results);
                 if ($("#movieGifsHere").children().length > 0) {
                     $("#movieGifsHere").prepend("<hr>");
                 }
@@ -106,7 +90,6 @@ $(document).ready(function () {
                         "class": "my-3 mx-auto mx-xl-3",
                         "id": gifs.counter
                     });
-                    $(newImgElem).on("click", gifs.animateGif);
                     $(newSubDivElem).append(newPElem);
                     $(newSubDivElem).append(favoritesButtonElem);
                     $(newDivElem).append(newSubDivElem);
@@ -116,7 +99,20 @@ $(document).ready(function () {
                 }
 
             })
-        },
+        }),
+        animateGif: $("#movieGifsHere").on("click", "img", function () {
+            if ($(this).attr("data-state") === "still") {
+                $(this).attr({
+                    "src": $(this).attr("data-animate"),
+                    "data-state": "animate"
+                })
+            } else {
+                $(this).attr({
+                    "src": $(this).attr("data-still"),
+                    "data-state": "still"
+                })
+            }
+        }),
         addToFavorites: $("#movieGifsHere").on("click", ".addFavorite", function () {
             $(this).html("<img src=\"assets/images/broken-heart.png\" width=\"24px\">");
             $(this).removeClass("btn-warning").addClass("btn-danger");
