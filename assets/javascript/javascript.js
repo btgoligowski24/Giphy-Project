@@ -59,7 +59,6 @@ $(document).ready(function () {
                 method: "GET",
             }).then(function (response) {
                 var results = response.data;
-                console.log($("#movieGifsHere").children().length)
                 if ($("#movieGifsHere").children().length > 0) {
                     $("#movieGifsHere").prepend("<hr class=\"w-100\">");
                 }
