@@ -7,3 +7,11 @@
     clear: both;
     display: block;
 }
+
+#clearFavorites {
+    display: none;
+}
+
+.lineBreak {
+    border-bottom: 1px solid darkgrey;
+}

@@ -94,10 +94,11 @@
                 </form>
                 <div class="row">
                     <div class="col-12">
-                        <div class="card">
-                            <div class="card-header font-weight-bold">
-                                <img class="btn-warning rounded p-1" src="assets/images/star.png" width="30px">
-                                Favorites:
+                        <div id="favoritesCard" class="card">
+                            <div class="card-header font-weight-bold d-flex justify-content-between">
+                                <span><img class="btn-warning rounded p-1" src="assets/images/star.png" width="30px">
+                                    Favorites:</span>
+                                <button id="clearFavorites" class="btn btn-sm btn-secondary">Remove All</button>
                             </div>
                             <div id="favorites" class="card-body text-center">
 
