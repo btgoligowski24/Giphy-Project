@@ -79,15 +79,15 @@ $(document).ready(function () {
                         "float": "left"
                     });
                     $(newImgElem).attr({
-                        "src": results[index].images.fixed_height_still.url,
+                        "src": results[index].images.fixed_width_still.url,
                         "data-state": "still",
-                        "data-still": results[index].images.fixed_height_still.url,
-                        "data-animate": results[index].images.fixed_height.url,
+                        "data-still": results[index].images.fixed_width_still.url,
+                        "data-animate": results[index].images.fixed_width.url,
                         "data-rating": results[index].rating,
                         "class": "rounded gif"
                     });
                     $(newDivElem).attr({
-                        "class": "my-3 mx-auto mx-xl-3 gifContainer",
+                        "class": "mx-xl-2 mx-auto my-2 gifContainer",
                     });
                     $(newSubDivElem).append(newPElem);
                     $(newSubDivElem).append(favoritesButtonElem);
@@ -130,18 +130,13 @@ $(document).ready(function () {
                 gifs.persistMovies = [];
             }
             for (i in gifs.persistMovies) {
-                var outerDivElem = $("<div style=\"display: inline-block\" class=\"gifContainer\">");
+                var outerDivElem = $("<div style=\"display: inline-block\" class=\"gifContainer m-2\">");
                 var innerDivElem = $("<div>");
                 var pElem = $("<p class=\"rating mb-0\" style=\"display: inline; float: left\">");
                 var buttonElem = $("<button class=\"addFavorite btn btn-sm mb-1 btn-danger\" style=\"float: right\">");
                 var buttonImgElem = $("<img src=\"assets/images/broken-heart.png\" width=\"24px\">")
                 var imgElem = $("<img class=\"rounded gif\">");
                 var spanElem = $("<span class=\"font-weight-bold\">")
-                if ($("#favorites").children().length === 0) {
-                    $(outerDivElem).addClass("mx-auto");
-                } else {
-                    $(outerDivElem).addClass("mx-auto mb-xl-3");
-                }
                 $(spanElem).text("Rating: ");
                 $(outerDivElem).attr("data-storeID", i);
                 $(imgElem).attr({
@@ -171,7 +166,7 @@ $(document).ready(function () {
             $(this).removeClass("btn-danger").addClass("btn-warning");
             var move = $(this).parents().eq(1);
             var removeID = $(move).attr("storeID");
-            $(move).removeClass("mb-xl-3").addClass("mx-xl-3 my-3");
+            $(move).removeClass("m-2").addClass("mx-xl-2 my-2 mx-auto");
             $("#movieGifsHere").prepend(move);
             gifs.persistMovies.splice(removeID, 1);
             localStorage.setItem("favorites", JSON.stringify(gifs.persistMovies));
@@ -184,7 +179,7 @@ $(document).ready(function () {
                 var move = $(this);
                 $(move).children().children("button").removeClass("btn-danger").addClass("btn-warning");
                 $(move).children().children().children("img").attr("src", "assets/images/star.png");
-                $(move).removeClass("mb-xl-3").addClass("mx-xl-3 my-3");
+                $(move).removeClass("m-2").addClass("mx-xl-2 my-2 mx-auto");
                 $(move).detach();
                 $("#movieGifsHere").prepend(move);
                 gifs.renderFavorites();
