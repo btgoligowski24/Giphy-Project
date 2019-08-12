@@ -187,7 +187,12 @@ $(document).ready(function () {
         })
     }
     $("#submit").on("click", function () {
-        gifs.movies.push($("#movieInput").val().trim());
+        var movieValue = $("#movieInput").val().trim()
+        if (!movieValue) {
+            alert("You actually need to enter some text silly!");
+            return
+        }
+        gifs.movies.push(movieValue);
         $("#movieInput").val("");
         gifs.buttonArray(gifs.movies);
     });
